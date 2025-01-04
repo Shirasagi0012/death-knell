@@ -20,3 +20,8 @@ docker run -d `
      -e "WEBHOOK_URL=飞书Bot的Webhook地址，如https://open.feishu.cn/open-apis/bot/v2/hook/****" `
      death-knell
 ```
+
+## Credit
+
+ Xunop/death-knell: 原始项目
+ Serein203: 飞书bot Webhook支持
