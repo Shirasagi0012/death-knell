@@ -3,7 +3,7 @@ from course import Course
 
 
 def create_database():
-    conn = sqlite3.connect('data/data.db')
+    conn = sqlite3.connect('/app/data/data.db')
     c = conn.cursor()
     # 创建 users 表
     c.execute('''
@@ -38,7 +38,7 @@ def create_database():
 
 
 def insert_user(user_id, username, password, year, semester):
-    conn = sqlite3.connect('data/data.db')
+    conn = sqlite3.connect('/app/data/data.db')
     c = conn.cursor()
     c.execute('''
     INSERT INTO users (user_id, username, password, year, semester)
@@ -49,7 +49,7 @@ def insert_user(user_id, username, password, year, semester):
 
 
 def get_user(user_id):
-    conn = sqlite3.connect('data/data.db')
+    conn = sqlite3.connect('/app/data/data.db')
     c = conn.cursor()
     c.execute('''
     SELECT * FROM users WHERE user_id = ?
@@ -60,7 +60,7 @@ def get_user(user_id):
 
 
 def insert_course(course: Course, user_id):
-    conn = sqlite3.connect('data/data.db')
+    conn = sqlite3.connect('/app/data/data.db')
     c = conn.cursor()
     if course.real_score in [None, '', 'NULL']:
         course.real_score = 0
@@ -75,7 +75,7 @@ def insert_course(course: Course, user_id):
 
 
 def get_courses(user_id):
-    conn = sqlite3.connect('data/data.db')
+    conn = sqlite3.connect('/app/data/data.db')
     c = conn.cursor()
     c.execute('''
     SELECT * FROM courses WHERE user_id = ?
@@ -86,7 +86,7 @@ def get_courses(user_id):
 
 
 def get_course(user_id, course_id, year, semester):
-    conn = sqlite3.connect('data/data.db')
+    conn = sqlite3.connect('/app/data/data.db')
     c = conn.cursor()
     c.execute('''
     SELECT * FROM courses WHERE user_id = ? AND course_id = ? AND year = ? AND semester = ?
@@ -100,7 +100,7 @@ def get_course(user_id, course_id, year, semester):
 
 # update_course update course
 def update_course(course: Course, user_id):
-    conn = sqlite3.connect('data/data.db')
+    conn = sqlite3.connect('/app/data/data.db')
     c = conn.cursor()
     if course.real_score in [None, '', 'NULL']:
         course.real_score = 0
@@ -114,7 +114,7 @@ def update_course(course: Course, user_id):
 
 
 def delete_course(user_id, course_id, year, semester):
-    conn = sqlite3.connect('data/data.db')
+    conn = sqlite3.connect('/app/data/data.db')
     c = conn.cursor()
     c.execute('''
     DELETE FROM courses WHERE user_id = ? AND course_id = ? AND year = ? AND semester = ?
