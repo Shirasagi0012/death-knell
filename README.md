@@ -21,6 +21,12 @@ docker run -d `
      death-knell
 ```
 
+每一小时自动获取一次最新成绩，并推送至飞书bot。如图：
+
+![image](https://github.com/user-attachments/assets/92bc9a5f-026e-4edb-8f06-7c287700918e)
+
+祝愿各位高分通过🎉
+
 ## Credit
 
  Xunop/death-knell: 原始项目  
