@@ -25,7 +25,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from course import Course
 from sqlite import insert_course, get_course, update_course, create_database
 
-
 def parse_args():
     # Parse args from command line
 
@@ -108,8 +107,9 @@ def push_to_feishu(courses: list[Course]):
         if not check_course_update(course, user_id):
             print('Course has not been updated, skipping...')
             continue
-        requests.post(
-            webhook_url, headers=headers, json=course.to_json())
+        r = requests.post(
+            webhook_url, headers=headers, json=course.to_feishu_message())
+        print(r.text)
 
 
 def store_course(course: Course, user_id: str):
@@ -264,9 +264,11 @@ with redirect_stdout(null_file):
 
 options = Options()
 # Use headless mode
+print("Running in headless mode...")
 options.add_argument("--headless")
 driver = webdriver.Firefox(options=options)
 
+print("Starting...")
 create_database()
 
 courses = get_courses(user_id, user_pwd, year, semester, webhook_url)

@@ -16,15 +16,15 @@ class Course:
     @staticmethod
     def check_if_dead(total_score):
         """Determine if the course result is failing based on total_score."""
-        if isinstance(total_score, int) and total_score < 60:
+        print(total_score.isnumeric())
+        if total_score.isnumeric() and int(total_score) < 60:
             return True
         elif total_score == '不及格':
             return True
         return False
 
     def __str__(self):
-        base_info = f"{self.name} - Year: {self.year}, Semester: {self.semester}, Credit: {
-            self.credit}, GPA: {self.gpa}, Total Score: {self.total_score}, Failed: {self.is_dead}"
+        base_info = f"{self.name} - Year: {self.year}, Semester: {self.semester}, Credit: {self.credit}, GPA: {self.gpa}, Total Score: {self.total_score}, Failed: {self.is_dead}"
 
         if self.normal_score not in [None, '', 'NULL']:
             base_info += f", Normal Score: {self.normal_score}"
@@ -47,6 +47,31 @@ class Course:
             'total_score': self.total_score,
             'is_dead': self.is_dead
         }
+
+    def to_feishu_message(self):
+        data = {
+                "msg_type": "interactive",
+                "card": {
+                        "elements": [{
+                                "tag": "div",
+                                "text": {
+                        "content": f"总分：**{self.total_score}** \n学分：**{self.gpa}**\n课程ID: {self.course_id}",
+                                        "tag": "lark_md"
+                                }
+                        }],
+                        "header": {
+                                "title": {
+                                        "content": f"噩耗：{self.name} 出成绩了！",
+                                        "tag": "plain_text"
+                                }
+                        }
+                }
+        }
+        if self.is_dead:
+            data["card"]["elements"][0]["text"]["content"] += "\n你没有通过本科目，继续加油哦"
+        else:
+            data["card"]["elements"][0]["text"]["content"] += "\n恭喜你通过本科目"
+        return data
 
     def __eq__(self, other):
         return self.to_json() == other.to_json()
