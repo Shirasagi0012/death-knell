@@ -8,6 +8,7 @@ ENV SCHOOL_YEAR="2024-2025"
 ENV SEMESTER="1"
 ENV WEBHOOK_URL=""
 
+VOLUME ["/app/data.db"]
 
 # 初始化 pacman 密钥并更新系统
 RUN pacman-key --init && \
