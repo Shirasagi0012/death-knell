@@ -42,8 +42,12 @@ RUN chmod +x run.sh
 RUN pacman -S --noconfirm cronie
 
 # 创建定时任务
-RUN echo "0 * * * * /usr/bin/bash /app/run.sh\n" > /etc/cron.d/death-knell && \
-    chmod 0644 /etc/cron.d/death-knell
-
-# 启动定时任务
-CMD ["sh", "-c", "crond -n -x proc"]
+CMD ["/bin/bash", "-c", "echo \"SHELL=/bin/bash\" > /etc/cron.d/death-knell && \
+    echo \"STUDENT_ID=\\\"$STUDENT_ID\\\"\" >> /etc/cron.d/death-knell && \
+    echo \"PASSWORD=\\\"$PASSWORD\\\"\" >> /etc/cron.d/death-knell && \
+    echo \"NAME=\\\"$NAME\\\"\" >> /etc/cron.d/death-knell && \
+    echo \"SCHOOL_YEAR=\\\"$SCHOOL_YEAR\\\"\" >> /etc/cron.d/death-knell && \
+    echo \"SEMESTER=\\\"$SEMESTER\\\"\" >> /etc/cron.d/death-knell && \
+    echo \"WEBHOOK_URL=\\\"$WEBHOOK_URL\\\"\" >> /etc/cron.d/death-knell && \
+    echo \"0 * * * * root sh /app/run.sh\" >> /etc/cron.d/death-knell && \
+    chmod 0644 /etc/cron.d/death-knell && crond -n -x proc"]
