@@ -55,7 +55,7 @@ class Course:
                         "elements": [{
                                 "tag": "div",
                                 "text": {
-                        "content": f"总分：**{self.total_score}** \n学分：**{self.gpa}**\n课程ID: {self.course_id}",
+                      "content": f"总分：**{self.total_score}**\n学分：**{self.credit}** \n绩点：**{self.gpa}**\n课程ID: {self.course_id}",
                                         "tag": "lark_md"
                                 }
                         }],
